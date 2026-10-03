@@ -1,0 +1,915 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		68D569BE2E1B415700A5BA36 /* CodeEditorView in Frameworks */ = {isa = PBXBuildFile; productRef = 68D569BD2E1B415700A5BA36 /* CodeEditorView */; };
+		68D569C02E1B415700A5BA36 /* LanguageSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 68D569BF2E1B415700A5BA36 /* LanguageSupport */; };
+		A8110C100000000000000007 /* PikGoWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A8110C100000000000000001 /* PikGoWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A8110C100000000000000009 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC139F6D2DE97EA400F63846 /* WidgetKit.framework */; };
+		A8110C10000000000000000A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC139F6F2DE97EA400F63846 /* SwiftUI.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DC6F1D492D94EADF0071B2B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC6F1D2F2D94EADD0071B2B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC6F1D362D94EADD0071B2B6;
+			remoteInfo = PikGo;
+		};
+		DC6F1D532D94EADF0071B2B6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC6F1D2F2D94EADD0071B2B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC6F1D362D94EADD0071B2B6;
+			remoteInfo = PikGo;
+		};
+		A8110C100000000000000005 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC6F1D2F2D94EADD0071B2B6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A8110C100000000000000004;
+			remoteInfo = PikGoWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DCA6901F2DAF660E007C91A8 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A8110C100000000000000007 /* PikGoWidget.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A8110C100000000000000001 /* PikGoWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PikGoWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC139F6D2DE97EA400F63846 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		DC139F6F2DE97EA400F63846 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		DC6F1D372D94EADD0071B2B6 /* PikGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PikGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC6F1D482D94EADF0071B2B6 /* PikGoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PikGoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC6F1D522D94EADF0071B2B6 /* PikGoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PikGoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		1775D3612D9644FD00DFA8E0 /* Exceptions for "PikGo" folder in "PikGo" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DC6F1D362D94EADD0071B2B6 /* PikGo */;
+		};
+		A8110C100000000000000010 /* Exceptions for "PikGoWidget" folder in "PikGoWidget" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A8110C100000000000000004 /* PikGoWidget */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DC6F1D392D94EADD0071B2B6 /* PikGo */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1775D3612D9644FD00DFA8E0 /* Exceptions for "PikGo" folder in "PikGo" target */,
+			);
+			path = PikGo;
+			sourceTree = "<group>";
+		};
+		DC6F1D4B2D94EADF0071B2B6 /* PikGoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PikGoTests;
+			sourceTree = "<group>";
+		};
+		DC6F1D552D94EADF0071B2B6 /* PikGoUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PikGoUITests;
+			sourceTree = "<group>";
+		};
+		A8110C100000000000000002 /* PikGoWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A8110C100000000000000010 /* Exceptions for "PikGoWidget" folder in "PikGoWidget" target */,
+			);
+			path = PikGoWidget;
+			sourceTree = "<group>";
+		};
+		A8110C100000000000000003 /* PikGoShared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = PikGoShared;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DC6F1D342D94EADD0071B2B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68D569C02E1B415700A5BA36 /* LanguageSupport in Frameworks */,
+				68D569BE2E1B415700A5BA36 /* CodeEditorView in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC6F1D452D94EADF0071B2B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC6F1D4F2D94EADF0071B2B6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8110C100000000000000008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A8110C10000000000000000A /* SwiftUI.framework in Frameworks */,
+				A8110C100000000000000009 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DC6F1D2E2D94EADD0071B2B6 = {
+			isa = PBXGroup;
+			children = (
+				DC6F1D392D94EADD0071B2B6 /* PikGo */,
+				A8110C100000000000000003 /* PikGoShared */,
+				A8110C100000000000000002 /* PikGoWidget */,
+				DC6F1D4B2D94EADF0071B2B6 /* PikGoTests */,
+				DC6F1D552D94EADF0071B2B6 /* PikGoUITests */,
+				DC6F1D752D94EB620071B2B6 /* Frameworks */,
+				DC6F1D382D94EADD0071B2B6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DC6F1D382D94EADD0071B2B6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC6F1D372D94EADD0071B2B6 /* PikGo.app */,
+				A8110C100000000000000001 /* PikGoWidget.appex */,
+				DC6F1D482D94EADF0071B2B6 /* PikGoTests.xctest */,
+				DC6F1D522D94EADF0071B2B6 /* PikGoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC6F1D752D94EB620071B2B6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DC139F6D2DE97EA400F63846 /* WidgetKit.framework */,
+				DC139F6F2DE97EA400F63846 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DC6F1D362D94EADD0071B2B6 /* PikGo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC6F1D5C2D94EADF0071B2B6 /* Build configuration list for PBXNativeTarget "PikGo" */;
+			buildPhases = (
+				DC6F1D332D94EADD0071B2B6 /* Sources */,
+				DC6F1D342D94EADD0071B2B6 /* Frameworks */,
+				DC6F1D352D94EADD0071B2B6 /* Resources */,
+				DCA6901F2DAF660E007C91A8 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A8110C100000000000000006 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DC6F1D392D94EADD0071B2B6 /* PikGo */,
+				A8110C100000000000000003 /* PikGoShared */,
+			);
+			name = PikGo;
+			packageProductDependencies = (
+				68D569BD2E1B415700A5BA36 /* CodeEditorView */,
+				68D569BF2E1B415700A5BA36 /* LanguageSupport */,
+			);
+			productName = PikGo;
+			productReference = DC6F1D372D94EADD0071B2B6 /* PikGo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DC6F1D472D94EADF0071B2B6 /* PikGoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC6F1D5F2D94EADF0071B2B6 /* Build configuration list for PBXNativeTarget "PikGoTests" */;
+			buildPhases = (
+				DC6F1D442D94EADF0071B2B6 /* Sources */,
+				DC6F1D452D94EADF0071B2B6 /* Frameworks */,
+				DC6F1D462D94EADF0071B2B6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC6F1D4A2D94EADF0071B2B6 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DC6F1D4B2D94EADF0071B2B6 /* PikGoTests */,
+			);
+			name = PikGoTests;
+			packageProductDependencies = (
+			);
+			productName = PikGoTests;
+			productReference = DC6F1D482D94EADF0071B2B6 /* PikGoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DC6F1D512D94EADF0071B2B6 /* PikGoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC6F1D622D94EADF0071B2B6 /* Build configuration list for PBXNativeTarget "PikGoUITests" */;
+			buildPhases = (
+				DC6F1D4E2D94EADF0071B2B6 /* Sources */,
+				DC6F1D4F2D94EADF0071B2B6 /* Frameworks */,
+				DC6F1D502D94EADF0071B2B6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC6F1D542D94EADF0071B2B6 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DC6F1D552D94EADF0071B2B6 /* PikGoUITests */,
+			);
+			name = PikGoUITests;
+			packageProductDependencies = (
+			);
+			productName = PikGoUITests;
+			productReference = DC6F1D522D94EADF0071B2B6 /* PikGoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		A8110C100000000000000004 /* PikGoWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A8110C10000000000000000F /* Build configuration list for PBXNativeTarget "PikGoWidget" */;
+			buildPhases = (
+				A8110C10000000000000000B /* Sources */,
+				A8110C100000000000000008 /* Frameworks */,
+				A8110C10000000000000000C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				A8110C100000000000000002 /* PikGoWidget */,
+				A8110C100000000000000003 /* PikGoShared */,
+			);
+			name = PikGoWidget;
+			packageProductDependencies = (
+			);
+			productName = PikGoWidget;
+			productReference = A8110C100000000000000001 /* PikGoWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DC6F1D2F2D94EADD0071B2B6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					DC6F1D362D94EADD0071B2B6 = {
+						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
+					};
+					DC6F1D472D94EADF0071B2B6 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = DC6F1D362D94EADD0071B2B6;
+					};
+					DC6F1D512D94EADF0071B2B6 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = DC6F1D362D94EADD0071B2B6;
+					};
+					A8110C100000000000000004 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+				};
+			};
+			buildConfigurationList = DC6F1D322D94EADD0071B2B6 /* Build configuration list for PBXProject "PikGo" */;
+			developmentRegion = "zh-Hant";
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				es,
+				it,
+				"zh-Hant",
+			);
+			mainGroup = DC6F1D2E2D94EADD0071B2B6;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				68D569BC2E1B415700A5BA36 /* XCRemoteSwiftPackageReference "CodeEditorView" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DC6F1D382D94EADD0071B2B6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DC6F1D362D94EADD0071B2B6 /* PikGo */,
+				A8110C100000000000000004 /* PikGoWidget */,
+				DC6F1D472D94EADF0071B2B6 /* PikGoTests */,
+				DC6F1D512D94EADF0071B2B6 /* PikGoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DC6F1D352D94EADD0071B2B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC6F1D462D94EADF0071B2B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC6F1D502D94EADF0071B2B6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8110C10000000000000000C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DC6F1D332D94EADD0071B2B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC6F1D442D94EADF0071B2B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DC6F1D4E2D94EADF0071B2B6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A8110C10000000000000000B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DC6F1D4A2D94EADF0071B2B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC6F1D362D94EADD0071B2B6 /* PikGo */;
+			targetProxy = DC6F1D492D94EADF0071B2B6 /* PBXContainerItemProxy */;
+		};
+		DC6F1D542D94EADF0071B2B6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC6F1D362D94EADD0071B2B6 /* PikGo */;
+			targetProxy = DC6F1D532D94EADF0071B2B6 /* PBXContainerItemProxy */;
+		};
+		A8110C100000000000000006 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A8110C100000000000000004 /* PikGoWidget */;
+			targetProxy = A8110C100000000000000005 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DC6F1D5A2D94EADF0071B2B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DC6F1D5B2D94EADF0071B2B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		DC6F1D5D2D94EADF0071B2B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = PikGo;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PikGo/PikGo.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S359P57HZ5;
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PikGo/idevice",
+				);
+				INFOPLIST_FILE = PikGo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PikGo;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "此 App 需要讀取健康資料，以確認步數已成功寫入。";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "此 App 需要權限才能把步數寫入「健康」App。";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "PikGo needs access to devices on your local network so it can connect to the targets you add to the Device Library.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PikGo uses location to stay running in the background and maintain your JIT connection.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PikGo uses location to stay running in the background and maintain your JIT connection.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PikGo/idevice",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 3.1.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chouhsiang.pikgo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/PikGo/idevice";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		DC6F1D5E2D94EADF0071B2B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = PikGo;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = PikGo/PikGo.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S359P57HZ5;
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_DEBUG_DYLIB = NO;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PikGo/idevice",
+				);
+				INFOPLIST_FILE = PikGo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PikGo;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = YES;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "此 App 需要讀取健康資料，以確認步數已成功寫入。";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "此 App 需要權限才能把步數寫入「健康」App。";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "PikGo needs access to devices on your local network so it can connect to the targets you add to the Device Library.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "PikGo uses location to stay running in the background and maintain your JIT connection.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "PikGo uses location to stay running in the background and maintain your JIT connection.";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportsDocumentBrowser = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PikGo/idevice",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 3.1.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chouhsiang.pikgo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/PikGo/idevice";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		DC6F1D602D94EADF0071B2B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SZ977XLF24;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PikGo/idevice",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PikGo/idevice",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chouhsiang.pikgo.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/PikGo/idevice";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PikGo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PikGo";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		DC6F1D612D94EADF0071B2B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SZ977XLF24;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PikGo/idevice",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PikGo/idevice",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chouhsiang.pikgo.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_INCLUDE_PATHS = "$(inherited) $(PROJECT_DIR)/PikGo/idevice";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PikGo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/PikGo";
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		DC6F1D632D94EADF0071B2B6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SZ977XLF24;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chouhsiang.pikgo.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = PikGo;
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		DC6F1D642D94EADF0071B2B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SZ977XLF24;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MACOSX_DEPLOYMENT_TARGET = 15.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chouhsiang.pikgo.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_TARGET_NAME = PikGo;
+				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		A8110C10000000000000000D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = PikGoWidget/PikGoWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S359P57HZ5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PikGoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "導航";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 3.1.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chouhsiang.pikgo.NavigationWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A8110C10000000000000000E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = PikGoWidget/PikGoWidget.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S359P57HZ5;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PikGoWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "導航";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 3.1.13;
+				PRODUCT_BUNDLE_IDENTIFIER = com.chouhsiang.pikgo.NavigationWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DC6F1D322D94EADD0071B2B6 /* Build configuration list for PBXProject "PikGo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6F1D5A2D94EADF0071B2B6 /* Debug */,
+				DC6F1D5B2D94EADF0071B2B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC6F1D5C2D94EADF0071B2B6 /* Build configuration list for PBXNativeTarget "PikGo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6F1D5D2D94EADF0071B2B6 /* Debug */,
+				DC6F1D5E2D94EADF0071B2B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC6F1D5F2D94EADF0071B2B6 /* Build configuration list for PBXNativeTarget "PikGoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6F1D602D94EADF0071B2B6 /* Debug */,
+				DC6F1D612D94EADF0071B2B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC6F1D622D94EADF0071B2B6 /* Build configuration list for PBXNativeTarget "PikGoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC6F1D632D94EADF0071B2B6 /* Debug */,
+				DC6F1D642D94EADF0071B2B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A8110C10000000000000000F /* Build configuration list for PBXNativeTarget "PikGoWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A8110C10000000000000000D /* Debug */,
+				A8110C10000000000000000E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		68D569BC2E1B415700A5BA36 /* XCRemoteSwiftPackageReference "CodeEditorView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mchakravarty/CodeEditorView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		68D569BD2E1B415700A5BA36 /* CodeEditorView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68D569BC2E1B415700A5BA36 /* XCRemoteSwiftPackageReference "CodeEditorView" */;
+			productName = CodeEditorView;
+		};
+		68D569BF2E1B415700A5BA36 /* LanguageSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68D569BC2E1B415700A5BA36 /* XCRemoteSwiftPackageReference "CodeEditorView" */;
+			productName = LanguageSupport;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = DC6F1D2F2D94EADD0071B2B6 /* Project object */;
+}

@@ -1,0 +1,30 @@
+//
+//  DeviceConnectionContext.swift
+//  PikGo
+//
+//  Created by Stephen.
+//
+
+import Foundation
+
+enum DeviceConnectionContext {
+    static let defaultTargetIPAddress = "10.7.0.1"
+    static let defaultTunnelIPAddress = "10.7.1.1"
+
+    static var targetIPAddress: String {
+        let stored = UserDefaults.standard
+            .string(forKey: UserDefaults.Keys.targetDeviceIP)?
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let stored, !stored.isEmpty else {
+            return defaultTargetIPAddress
+        }
+        return stored
+    }
+
+    static func isLocalDevVPNInterfaceAddress(_ ip: String) -> Bool {
+        ip == defaultTunnelIPAddress ||
+            ip.hasPrefix("10.7.1.") ||
+            ip == targetIPAddress ||
+            ip.hasPrefix("10.7.0.")
+    }
+}
