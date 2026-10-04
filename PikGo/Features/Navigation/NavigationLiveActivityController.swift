@@ -57,13 +57,14 @@ final class NavigationLiveActivityController {
         on activity: Activity<NavigationActivityAttributes>,
         force: Bool
     ) async {
+        let minimumInterval: TimeInterval = AppRuntimeState.shared.isActive ? 6 : 12
         if !force,
-           Date().timeIntervalSince(lastUpdate) < 5,
+           Date().timeIntervalSince(lastUpdate) < minimumInterval,
            lastPublishedState == state {
             return
         }
         if !force,
-           Date().timeIntervalSince(lastUpdate) < 5,
+           Date().timeIntervalSince(lastUpdate) < minimumInterval,
            lastPublishedState?.remainingTimeText == state.remainingTimeText,
            lastPublishedState?.remainingDistanceText == state.remainingDistanceText,
            lastPublishedState?.isPaused == state.isPaused {

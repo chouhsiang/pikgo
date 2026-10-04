@@ -40,7 +40,31 @@ enum PairingFileStore {
         return destination
     }
 
+    static func containsRemotePairingFile(fileManager: FileManager = .default) -> Bool {
+        isRemotePairingFile(at: prepareURL(fileManager: fileManager), fileManager: fileManager)
+    }
+
+    static func isRemotePairingFile(at sourceURL: URL, fileManager: FileManager = .default) -> Bool {
+        guard fileManager.fileExists(atPath: sourceURL.path),
+              let data = try? Data(contentsOf: sourceURL),
+              let object = try? PropertyListSerialization.propertyList(from: data, options: [], format: nil) as? [String: Any] else {
+            return false
+        }
+        let required = ["alt_irk", "identifier", "private_key", "public_key"]
+        return required.allSatisfy { object[$0] != nil }
+    }
+
     static func replace(with sourceURL: URL, fileManager: FileManager = .default) throws {
+        guard isRemotePairingFile(at: sourceURL, fileManager: fileManager) else {
+            throw NSError(
+                domain: "PikGo.PairingFile",
+                code: 2,
+                userInfo: [
+                    NSLocalizedDescriptionKey: "這不是 Remote Pairing 檔。請匯入 idevice pair 產生的 .plist，不要用 lockdown pairing。"
+                ]
+            )
+        }
+
         try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: true)
 
         let documentsDestination = documentsURL

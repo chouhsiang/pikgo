@@ -1,5 +1,6 @@
 import Foundation
 import HealthKit
+import UIKit
 
 enum HealthKitError: LocalizedError {
     case notAvailable
@@ -41,6 +42,17 @@ final class HealthKitManager: ObservableObject {
         }
 
         try await store.requestAuthorization(toShare: [stepType], read: [stepType])
+        refreshAuthorizationStatus()
+    }
+
+    func promptAuthorizationOrOpenSettings() async {
+        guard isHealthDataAvailable else { return }
+        refreshAuthorizationStatus()
+        if store.authorizationStatus(for: stepType) == .sharingDenied {
+            StatusRemediation.openAppSettings()
+            return
+        }
+        try? await requestAuthorization()
         refreshAuthorizationStatus()
     }
 

@@ -22,13 +22,7 @@ enum AppBootstrapper {
     }
 
     private static func registerDefaultSettings() {
-        let os = ProcessInfo.processInfo.operatingSystemVersion
-        let enableAdvancedOptions = os.majorVersion >= 19
-
         UserDefaults.standard.register(defaults: [
-            "enableAdvancedOptions": enableAdvancedOptions,
-            UserDefaults.Keys.txmOverride: false,
-            UserDefaults.Keys.confirmExternalJITRequests: true,
             "keepAliveAudio": true,
             "keepAliveLocation": true,
             UserDefaults.Keys.routeSpeedKilometersPerHour: RouteSimulationSpeed.defaultKilometersPerHour,

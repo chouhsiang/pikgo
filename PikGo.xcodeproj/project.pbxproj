@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		68D569BE2E1B415700A5BA36 /* CodeEditorView in Frameworks */ = {isa = PBXBuildFile; productRef = 68D569BD2E1B415700A5BA36 /* CodeEditorView */; };
-		68D569C02E1B415700A5BA36 /* LanguageSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 68D569BF2E1B415700A5BA36 /* LanguageSupport */; };
 		A8110C100000000000000007 /* PikGoWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A8110C100000000000000001 /* PikGoWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A8110C100000000000000009 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC139F6D2DE97EA400F63846 /* WidgetKit.framework */; };
 		A8110C10000000000000000A /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC139F6F2DE97EA400F63846 /* SwiftUI.framework */; };
@@ -117,8 +115,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				68D569C02E1B415700A5BA36 /* LanguageSupport in Frameworks */,
-				68D569BE2E1B415700A5BA36 /* CodeEditorView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,8 +200,6 @@
 			);
 			name = PikGo;
 			packageProductDependencies = (
-				68D569BD2E1B415700A5BA36 /* CodeEditorView */,
-				68D569BF2E1B415700A5BA36 /* LanguageSupport */,
 			);
 			productName = PikGo;
 			productReference = DC6F1D372D94EADD0071B2B6 /* PikGo.app */;
@@ -320,7 +314,6 @@
 			mainGroup = DC6F1D2E2D94EADD0071B2B6;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				68D569BC2E1B415700A5BA36 /* XCRemoteSwiftPackageReference "CodeEditorView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DC6F1D382D94EADD0071B2B6 /* Products */;
@@ -887,29 +880,6 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		68D569BC2E1B415700A5BA36 /* XCRemoteSwiftPackageReference "CodeEditorView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mchakravarty/CodeEditorView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.15.4;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		68D569BD2E1B415700A5BA36 /* CodeEditorView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 68D569BC2E1B415700A5BA36 /* XCRemoteSwiftPackageReference "CodeEditorView" */;
-			productName = CodeEditorView;
-		};
-		68D569BF2E1B415700A5BA36 /* LanguageSupport */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 68D569BC2E1B415700A5BA36 /* XCRemoteSwiftPackageReference "CodeEditorView" */;
-			productName = LanguageSupport;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DC6F1D2F2D94EADD0071B2B6 /* Project object */;
 }

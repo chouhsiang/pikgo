@@ -956,6 +956,7 @@ struct LocationSimulationView: View {
     @State private var alertMessage = ""
 
     @State private var searchText = ""
+    @State private var topMapChromeHeight: CGFloat = 180
     @StateObject private var searchCompleter = LocationSearchCompleter()
     @StateObject private var directionsPlanner = DirectionsPlannerModel()
     @State private var isPlanningRoute = false
@@ -1208,6 +1209,22 @@ struct LocationSimulationView: View {
         .shadow(color: .black.opacity(0.14), radius: 12, y: 4)
     }
 
+    private var restoreRealLocationPill: some View {
+        Button {
+            LocationSimulationControl.restoreRealLocation()
+        } label: {
+            Text("回到現實位置")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.primary)
+                .padding(.horizontal, 18)
+                .padding(.vertical, 10)
+                .background(Color(.systemBackground), in: Capsule())
+                .shadow(color: .black.opacity(0.12), radius: 8, y: 3)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("回到現實位置")
+    }
+
     private var routeSearchButton: some View {
         Button {
             beginPlanningRoute()
@@ -1241,7 +1258,8 @@ struct LocationSimulationView: View {
                 pinCoordinate: hasRouteContext ? nil : coordinate,
                 displayedRouteCoordinate: isNavigatingRoute ? nil : displayedRouteCoordinate,
                 onTap: handleMapTap,
-                onUnlock: unlockNavigationCamera
+                onUnlock: unlockNavigationCamera,
+                tapExclusionHeight: topMapChromeHeight
             )
             .equatable()
                 .ignoresSafeArea()
@@ -1254,33 +1272,49 @@ struct LocationSimulationView: View {
                 }
 
             VStack(spacing: 0) {
-                if isNavigatingRoute {
-                    navigationDestinationBanner
-                        .padding(.horizontal, 12)
-                        .padding(.top, 8)
-                        .padding(.bottom, 8)
-                } else if isPlanningRoute {
-                    DirectionsHeaderCard(planner: directionsPlanner) {
-                        cancelPlanningRoute()
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.top, 8)
-                } else {
-                    HStack(spacing: 10) {
-                        mapSearchBar
-                        routeSearchButton
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.top, 8)
-                    if readiness.shouldPromptAirplaneToggle {
-                        airplaneToggleBanner
+                VStack(spacing: 0) {
+                    if isNavigatingRoute {
+                        navigationDestinationBanner
                             .padding(.horizontal, 12)
                             .padding(.top, 8)
-                    }
-                if !searchCompleter.results.isEmpty {
-                    searchResultsList
+                            .padding(.bottom, 8)
+                    } else if isPlanningRoute {
+                        DirectionsHeaderCard(planner: directionsPlanner) {
+                            cancelPlanningRoute()
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.top, 8)
+                    } else {
+                        HStack(spacing: 10) {
+                            mapSearchBar
+                            routeSearchButton
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.top, 8)
+                        restoreRealLocationPill
+                            .padding(.horizontal, 12)
+                            .padding(.top, 8)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        if readiness.shouldPromptAirplaneToggle {
+                            airplaneToggleBanner
+                                .padding(.horizontal, 12)
+                                .padding(.top, 8)
+                        }
+                        if !searchCompleter.results.isEmpty {
+                            searchResultsList
+                        }
                     }
                 }
+                .frame(maxWidth: .infinity)
+                .safeAreaPadding(.top)
+                .padding(.bottom, 36)
+                .contentShape(Rectangle())
+                .background {
+                    GeometryReader { geo in
+                        Color.clear.preference(key: TopMapChromeHeightKey.self, value: geo.size.height)
+                    }
+                }
+                .onPreferenceChange(TopMapChromeHeightKey.self) { topMapChromeHeight = $0 }
 
                 Spacer()
 
@@ -1349,7 +1383,7 @@ struct LocationSimulationView: View {
                 }
             }
             .padding(.bottom, 24)
-            .safeAreaPadding(.top)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .navigationBar)
@@ -2021,7 +2055,7 @@ struct LocationSimulationView: View {
         runLocationCommand(
             errorTitle: "模擬失敗",
             errorMessage: { code in
-                "無法模擬位置（錯誤 \(code)）。請確認裝置已連線，且位置模擬已就緒。"
+                location_simulation_user_message(code)
             },
             operation: { locationUpdateCode(for: coord) }
         ) {
@@ -2044,7 +2078,7 @@ struct LocationSimulationView: View {
         runLocationCommand(
             errorTitle: "路線模擬失敗",
             errorMessage: { code in
-                "無法開始路線模擬（錯誤 \(code)）。請確認裝置已連線，且位置模擬已就緒。"
+                location_simulation_user_message(code)
             },
             operation: { locationUpdateCode(for: firstCoordinate) }
         ) {
@@ -2457,6 +2491,8 @@ struct LocationSimulationView: View {
                 : routePlaybackSamples.first?.coordinate
 
             let nextIndex = min(clampedIndex + 1, routePlaybackSamples.count)
+            var lastLocationSend = Date.distantPast
+            var lastUIPublish = Date.distantPast
             for index in nextIndex..<routePlaybackSamples.count {
                 let sample = routePlaybackSamples[index]
                 try? await Task.sleep(for: .seconds(sample.delayFromPrevious))
@@ -2465,7 +2501,13 @@ struct LocationSimulationView: View {
                     return
                 }
 
-                let code = await sendLocationUpdate(for: sample.coordinate)
+                let isActive = AppRuntimeState.shared.isActive
+                let minimumSendInterval: TimeInterval = isActive ? 0.45 : 0.5
+                var code: Int32 = 0
+                if Date().timeIntervalSince(lastLocationSend) >= minimumSendInterval {
+                    code = await sendLocationUpdate(for: sample.coordinate)
+                    lastLocationSend = Date()
+                }
                 guard LocationSimulationSession.shared.isCurrentRoute(routeID) else { return }
                 guard code == 0 else {
                     await MainActor.run {
@@ -2478,18 +2520,26 @@ struct LocationSimulationView: View {
                             startResendLoop(with: lastSuccessfulCoordinate)
                         }
                         alertTitle = "路線模擬失敗"
-                        alertMessage = "無法繼續路線模擬（錯誤 \(code)）。"
+                        alertMessage = location_simulation_user_message(code)
                         showAlert = true
                     }
                     return
                 }
 
                 lastSuccessfulCoordinate = sample.coordinate
+                let publishUI = Date().timeIntervalSince(lastUIPublish) >= (isActive ? 1.0 : 3.0)
+                if publishUI {
+                    lastUIPublish = Date()
+                }
                 await MainActor.run {
-                    routePlaybackIndex = index
-                    routePlaybackCoordinate = sample.coordinate
-                    LocationSimulationSession.shared.updateCoordinate(sample.coordinate)
-                    syncNavigationLiveActivity()
+                    if publishUI {
+                        routePlaybackIndex = index
+                        routePlaybackCoordinate = sample.coordinate
+                    }
+                    LocationSimulationSession.shared.updateCoordinate(sample.coordinate, publish: publishUI)
+                    if publishUI {
+                        syncNavigationLiveActivity()
+                    }
                 }
             }
 
@@ -2957,6 +3007,13 @@ struct BookmarksView: View {
     }
 }
 
+private struct TopMapChromeHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+}
+
 private struct RouteMapCanvas: View, Equatable {
     @Binding var position: MapCameraPosition
     let hasRouteContext: Bool
@@ -2968,6 +3025,7 @@ private struct RouteMapCanvas: View, Equatable {
     let displayedRouteCoordinate: CLLocationCoordinate2D?
     let onTap: (CLLocationCoordinate2D) -> Void
     let onUnlock: () -> Void
+    let tapExclusionHeight: CGFloat
 
     static func == (lhs: RouteMapCanvas, rhs: RouteMapCanvas) -> Bool {
         lhs.hasRouteContext == rhs.hasRouteContext &&
@@ -2978,7 +3036,8 @@ private struct RouteMapCanvas: View, Equatable {
         lhs.routeStart.map(CoordinateSnapshot.init) == rhs.routeStart.map(CoordinateSnapshot.init) &&
         lhs.routeEnd.map(CoordinateSnapshot.init) == rhs.routeEnd.map(CoordinateSnapshot.init) &&
         lhs.pinCoordinate.map(CoordinateSnapshot.init) == rhs.pinCoordinate.map(CoordinateSnapshot.init) &&
-        lhs.displayedRouteCoordinate.map(CoordinateSnapshot.init) == rhs.displayedRouteCoordinate.map(CoordinateSnapshot.init)
+        lhs.displayedRouteCoordinate.map(CoordinateSnapshot.init) == rhs.displayedRouteCoordinate.map(CoordinateSnapshot.init) &&
+        lhs.tapExclusionHeight == rhs.tapExclusionHeight
     }
 
     var body: some View {
@@ -3011,7 +3070,9 @@ private struct RouteMapCanvas: View, Equatable {
             }
             .mapStyle(.standard(elevation: .flat))
             .onTapGesture { point in
-                guard !isNavigatingRoute, let loc = proxy.convert(point, from: .local) else { return }
+                guard !isNavigatingRoute,
+                      point.y >= tapExclusionHeight,
+                      let loc = proxy.convert(point, from: .local) else { return }
                 onTap(loc)
             }
             .simultaneousGesture(
@@ -3141,6 +3202,7 @@ private final class NavigationCameraSession {
     private var lastAppliedCoordinate: CLLocationCoordinate2D?
     private var lastPuckPoint: CGPoint?
     private var lastPuckRotation: CGFloat?
+    private var lastCameraApplyTime: CFTimeInterval = 0
 
     var elapsed: TimeInterval {
         let live = walkingStartedAt.map { Date().timeIntervalSince($0) } ?? 0
@@ -3193,6 +3255,7 @@ private final class NavigationCameraSession {
         lastAppliedCoordinate = nil
         lastPuckPoint = nil
         lastPuckRotation = nil
+        lastCameraApplyTime = 0
         hidePuck()
     }
 
@@ -3215,11 +3278,13 @@ private final class NavigationCameraSession {
         lastAppliedCoordinate = nil
         lastPuckPoint = nil
         lastPuckRotation = nil
+        lastCameraApplyTime = 0
         prepareHeading()
         apply(dt: 1)
     }
 
     func apply(dt: CFTimeInterval) {
+        guard AppRuntimeState.shared.isActive else { return }
         updateHeading(dt: dt)
         guard isFollowing, let mapView, mapView.window != nil, let coordinate = currentCoordinate else {
             updatePuck()
@@ -3233,13 +3298,19 @@ private final class NavigationCameraSession {
         if let lastHeading = lastAppliedHeading, let lastCoordinate = lastAppliedCoordinate {
             var headingDelta = abs(cameraHeading - lastHeading)
             if headingDelta > 180 { headingDelta = 360 - headingDelta }
+            let now = CACurrentMediaTime()
+            if headingDelta < 3, now - lastCameraApplyTime < 0.28 {
+                updatePuck()
+                return
+            }
             let moved = CLLocation(latitude: lastCoordinate.latitude, longitude: lastCoordinate.longitude)
                 .distance(from: CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude))
-            if headingDelta < 0.02, moved < 0.04 {
+            if headingDelta < 1.2, moved < 1.6, now - lastCameraApplyTime < 0.7 {
                 updatePuck()
                 return
             }
         }
+        lastCameraApplyTime = CACurrentMediaTime()
 
         lastAppliedHeading = cameraHeading
         lastAppliedCoordinate = coordinate
@@ -3372,6 +3443,9 @@ private final class NavigationCameraBridgeView: UIView {
     private var displayLink: CADisplayLink?
     private let displayLinkProxy = NavigationCameraDisplayLinkProxy()
     private var lastTimestamp: CFTimeInterval = 0
+    private var cachedMapView: MKMapView?
+    private var runtimeObserver: NSObjectProtocol?
+    private var mapSearchFailures = 0
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -3379,6 +3453,13 @@ private final class NavigationCameraBridgeView: UIView {
         backgroundColor = .clear
         clipsToBounds = false
         displayLinkProxy.owner = self
+        runtimeObserver = NotificationCenter.default.addObserver(
+            forName: .appRuntimeStateDidChange,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.handleRuntimeChange()
+        }
     }
 
     required init?(coder: NSCoder) {
@@ -3386,6 +3467,9 @@ private final class NavigationCameraBridgeView: UIView {
     }
 
     deinit {
+        if let runtimeObserver {
+            NotificationCenter.default.removeObserver(runtimeObserver)
+        }
         displayLink?.invalidate()
     }
 
@@ -3403,9 +3487,13 @@ private final class NavigationCameraBridgeView: UIView {
             applyFlatMapAppearanceIfNeeded()
             attachMapView()
         }
-        startDisplayLink()
-        if becameNavigating {
-            session?.apply(dt: 1.0 / 30.0)
+        if AppRuntimeState.shared.isActive {
+            startDisplayLink()
+        } else {
+            stopDisplayLink()
+        }
+        if becameNavigating, AppRuntimeState.shared.isActive {
+            session?.apply(dt: 1.0 / 12.0)
         }
     }
 
@@ -3416,36 +3504,62 @@ private final class NavigationCameraBridgeView: UIView {
             stopDisplayLink()
             return
         }
+        cachedMapView = nil
         applyFlatMapAppearanceIfNeeded()
         guard isNavigating else { return }
         attachMapView()
-        startDisplayLink()
-        session?.apply(dt: 1.0 / 15.0)
+        if AppRuntimeState.shared.isActive {
+            startDisplayLink()
+            session?.apply(dt: 1.0 / 12.0)
+        } else {
+            stopDisplayLink()
+        }
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        applyFlatMapAppearanceIfNeeded()
-        guard isNavigating else { return }
+        guard isNavigating, session?.needsMapAttachment == true else { return }
         attachMapView()
+        applyFlatMapAppearanceIfNeeded()
+    }
+
+    private func handleRuntimeChange() {
+        guard isNavigating else { return }
+        if AppRuntimeState.shared.isActive {
+            attachMapView()
+            startDisplayLink()
+            session?.apply(dt: 1.0 / 12.0)
+        } else {
+            stopDisplayLink()
+        }
+    }
+
+    private func resolvedMapView() -> MKMapView? {
+        if let cachedMapView, cachedMapView.window != nil {
+            return cachedMapView
+        }
+        let found = findNearbyMKMapView(startingFrom: self)
+        cachedMapView = found
+        return found
     }
 
     private func applyFlatMapAppearanceIfNeeded() {
-        guard let mapView = findNearbyMKMapView(startingFrom: self) else { return }
+        guard let mapView = resolvedMapView() else { return }
         applyFlatMapAppearance(to: mapView)
     }
 
     private func attachMapView() {
-        session?.attach(mapView: findNearbyMKMapView(startingFrom: self), overlay: self)
+        session?.attach(mapView: resolvedMapView(), overlay: self)
     }
 
     private func startDisplayLink() {
-        guard displayLink == nil else { return }
+        guard displayLink == nil, AppRuntimeState.shared.isActive else { return }
         lastTimestamp = 0
+        mapSearchFailures = 0
         let link = CADisplayLink(target: displayLinkProxy, selector: #selector(NavigationCameraDisplayLinkProxy.tick(_:)))
         let isPad = UIDevice.current.userInterfaceIdiom == .pad
-        let preferred: Float = isPad ? 24 : 30
-        link.preferredFrameRateRange = CAFrameRateRange(minimum: 20, maximum: preferred, preferred: preferred)
+        let preferred: Float = isPad ? 10 : 12
+        link.preferredFrameRateRange = CAFrameRateRange(minimum: 8, maximum: preferred, preferred: preferred)
         link.add(to: .main, forMode: .common)
         displayLink = link
     }
@@ -3457,12 +3571,22 @@ private final class NavigationCameraBridgeView: UIView {
     }
 
     func handleDisplayTick(_ link: CADisplayLink) {
-        if session?.needsMapAttachment == true {
-            attachMapView()
+        guard AppRuntimeState.shared.isActive else {
+            stopDisplayLink()
+            return
         }
-        let raw = lastTimestamp == 0 ? max(link.duration, 1.0 / 30.0) : (link.timestamp - lastTimestamp)
+        if session?.needsMapAttachment == true {
+            mapSearchFailures += 1
+            if mapSearchFailures == 1 || mapSearchFailures % 24 == 0 {
+                cachedMapView = nil
+                attachMapView()
+            }
+        } else {
+            mapSearchFailures = 0
+        }
+        let raw = lastTimestamp == 0 ? max(link.duration, 1.0 / 12.0) : (link.timestamp - lastTimestamp)
         lastTimestamp = link.timestamp
-        session?.apply(dt: min(max(raw, 1.0 / 120.0), 1.0 / 12.0))
+        session?.apply(dt: min(max(raw, 1.0 / 60.0), 1.0 / 8.0))
     }
 }
 

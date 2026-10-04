@@ -5,62 +5,48 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to report a bug. Please fill out the information below to help us fix it.
+        回報前請先確認 pairing 檔、LocalDevVPN 與開發者模式都已就緒。不要貼上 pairing 檔內容。
   - type: textarea
     id: description
     attributes:
-      label: Description
-      description: A clear description of the bug.
-      placeholder: Describe what happened...
+      label: 發生了什麼
+      placeholder: 描述實際看到的行為...
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Steps to Reproduce
-      description: How can we reproduce this?
+      label: 重現步驟
       placeholder: |
-        1. Go to ...
-        2. Tap on ...
-        3. See error
+        1. ...
+        2. ...
+        3. ...
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: Expected Behavior
-      description: What did you expect to happen?
+      label: 預期行為
     validations:
       required: true
   - type: input
     id: ios-version
     attributes:
-      label: iOS Version
-      placeholder: e.g. 18.3.1
+      label: iOS 版本
+      placeholder: 例如 18.3.1
     validations:
       required: true
   - type: input
     id: device
     attributes:
-      label: Device
-      placeholder: e.g. iPhone 15 Pro
+      label: 裝置
+      placeholder: 例如 iPhone 15 Pro
     validations:
       required: true
   - type: input
     id: app-version
     attributes:
-      label: PikGo Version
-      placeholder: e.g. 1.0.0
+      label: PikGo 版本
+      placeholder: 例如 1.0.0
     validations:
       required: true
-  - type: textarea
-    id: logs
-    attributes:
-      label: Logs
-      description: Any relevant logs from the app's log viewer.
-      render: shell
-  - type: textarea
-    id: screenshots
-    attributes:
-      label: Screenshots
-      description: If applicable, add screenshots to help explain the issue.

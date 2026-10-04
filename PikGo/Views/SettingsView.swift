@@ -8,7 +8,6 @@ import UIKit
 
 private enum SettingsLinks {
     static let pairingFileGuide = URL(string: "https://github.com/StikDebug/StikDebug-Guide/blob/main/pairing_file.md")!
-    static let localDevVPN = URL(string: "https://apps.apple.com/us/app/localdevvpn/id6755608044")!
 }
 
 struct SettingsView: View {
@@ -190,8 +189,10 @@ struct SettingsView: View {
                     Link(destination: SettingsLinks.pairingFileGuide) {
                         Label("配對檔說明", systemImage: "questionmark.circle")
                     }
-                    Link(destination: SettingsLinks.localDevVPN) {
-                        Label("下載 LocalDevVPN", systemImage: "arrow.down.circle")
+                    Button {
+                        StatusRemediation.openLocalDevVPN()
+                    } label: {
+                        Label("開啟或下載 LocalDevVPN", systemImage: "arrow.down.circle")
                     }
                 }
 
@@ -203,6 +204,9 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("設定")
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .openPairingImporter)) { _ in
+            isShowingPairingFilePicker = true
         }
         .fileImporter(
             isPresented: $isShowingPairingFilePicker,

@@ -78,4 +78,10 @@ struct PikGoTests {
         #expect(ProcessInfo.processInfo.deviceVersion(from: "Mac14,2") == nil)
     }
 
+    @Test func routeSpeedClampsToSupportedRange() async throws {
+        #expect(RouteSimulationSpeed.minimumKilometersPerHour == 1)
+        #expect(RouteSimulationSpeed.maximumKilometersPerHour == 120)
+        #expect(RouteSimulationSpeed.defaultKilometersPerHour == 18)
+    }
+
 }

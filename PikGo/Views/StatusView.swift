@@ -107,30 +107,38 @@ struct StatusView: View {
             VStack(spacing: 0) {
                 StatusCheckRow(
                     title: "配對檔",
-                    detail: readiness.pairingImported ? "已匯入" : "尚未匯入，請到設定匯入",
-                    isSatisfied: readiness.pairingImported
+                    detail: pairingDetail,
+                    isSatisfied: readiness.pairingImported,
+                    action: readiness.pairingImported ? nil : StatusRemediation.openPairingImporter
                 )
                 Divider().padding(.leading, 52)
                 StatusCheckRow(
                     title: "LocalDevVPN",
                     detail: vpnDetail,
-                    isSatisfied: readiness.vpnRequirementSatisfied
+                    isSatisfied: readiness.vpnRequirementSatisfied,
+                    action: readiness.vpnRequirementSatisfied ? nil : StatusRemediation.openLocalDevVPN
                 )
                 Divider().padding(.leading, 52)
                 StatusCheckRow(
                     title: "位置模擬",
                     detail: ddiDetail,
-                    isSatisfied: readiness.ddiRequirementSatisfied
+                    isSatisfied: readiness.ddiRequirementSatisfied,
+                    action: readiness.ddiRequirementSatisfied ? nil : { readiness.refresh() }
                 )
                 Divider().padding(.leading, 52)
                 StatusCheckRow(
                     title: "健康步數",
                     detail: healthStepsDetail,
-                    isSatisfied: readiness.healthStepsRequirementSatisfied
+                    isSatisfied: readiness.healthStepsRequirementSatisfied,
+                    action: readiness.healthStepsRequirementSatisfied ? nil : promptHealthAuthorization
                 )
             }
             .background(Color(.secondarySystemGroupedBackground), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
         }
+    }
+
+    private var pairingDetail: String {
+        readiness.pairingImported ? "已匯入" : "尚未匯入，點這裡到設定匯入"
     }
 
     private var vpnDetail: String {
@@ -140,14 +148,14 @@ struct StatusView: View {
         if readiness.vpnSatisfiedThisSession {
             return "本階段已連線，目前為行動網路仍可繼續使用"
         }
-        return "尚未連線，請開啟並 Connect"
+        return "尚未連線，點這裡開啟 LocalDevVPN 或前往 App Store"
     }
 
     private var healthStepsDetail: String {
         if !readiness.healthStepsAvailable {
             return "這台裝置不支援健康步數"
         }
-        return readiness.healthStepsAuthorized ? "已允許讀寫" : "尚未允許讀寫"
+        return readiness.healthStepsAuthorized ? "已允許讀寫" : "尚未允許讀寫，點這裡授權"
     }
 
     private var ddiDetail: String {
@@ -160,13 +168,18 @@ struct StatusView: View {
                     ? "建立中，請關閉飛航前等已就緒"
                     : "尚未就緒，請開啟飛航再關閉"
             }
-            return readiness.ddiStatus == .notMounted
-                ? "尚未就緒，無法改座標"
-                : "尚未就緒，請確認裝置已連線"
+            return "尚未就緒，點這裡再試一次"
         case .filesMissing:
-            return "尚未下載，請保持網路後再重新檢查"
+            return "尚未下載，點這裡繼續準備"
         case .unknown:
             return "檢查中"
+        }
+    }
+
+    private func promptHealthAuthorization() {
+        Task {
+            await HealthKitManager.shared.promptAuthorizationOrOpenSettings()
+            readiness.refresh()
         }
     }
 
@@ -182,31 +195,20 @@ struct StatusView: View {
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(Color.orange.opacity(0.16), in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .contentShape(Rectangle())
+        .onTapGesture {
+            readiness.refresh()
+        }
     }
 
     @ViewBuilder
     private var actionHints: some View {
         if !readiness.isReady {
-            VStack(alignment: .leading, spacing: 10) {
-                if !readiness.pairingImported {
-                    hint("到「設定」匯入這台裝置的配對檔。")
-                }
-                if !readiness.vpnRequirementSatisfied {
-                    hint("打開 LocalDevVPN，確認狀態列出現 VPN 圖示。")
-                }
-                if !readiness.healthStepsRequirementSatisfied {
-                    hint("點「重新檢查」允許讀寫健康步數，或到系統設定 → 健康開啟。")
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            Text("橘色項目可以點，會直接帶到對應的解決方式。")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
-    }
-
-    private func hint(_ text: String) -> some View {
-        Label(text, systemImage: "lightbulb")
-            .font(.footnote)
-            .foregroundStyle(.secondary)
-            .fixedSize(horizontal: false, vertical: true)
     }
 
 }
@@ -215,9 +217,10 @@ private struct StatusCheckRow: View {
     let title: String
     let detail: String
     let isSatisfied: Bool
+    var action: (() -> Void)?
 
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
+        let row = HStack(alignment: .top, spacing: 12) {
             Image(systemName: isSatisfied ? "checkmark.circle.fill" : "xmark.circle.fill")
                 .font(.title3)
                 .foregroundStyle(isSatisfied ? Color.green : Color.orange)
@@ -233,8 +236,25 @@ private struct StatusCheckRow: View {
             }
 
             Spacer(minLength: 0)
+
+            if action != nil {
+                Image(systemName: "chevron.right")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.tertiary)
+                    .padding(.top, 4)
+            }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 14)
+        .contentShape(Rectangle())
+
+        if let action {
+            Button(action: action) {
+                row
+            }
+            .buttonStyle(.plain)
+        } else {
+            row
+        }
     }
 }

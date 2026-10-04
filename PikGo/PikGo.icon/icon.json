@@ -1,68 +1,38 @@
 {
   "fill" : {
     "linear-gradient" : [
-      "display-p3:0.38110,0.78809,0.97949,1.00000",
-      "display-p3:0.20813,0.42505,0.94629,1.00000"
+      "display-p3:0.36863,0.87843,0.54118,1.00000",
+      "display-p3:0.05882,0.41961,0.36078,1.00000"
     ]
   },
   "groups" : [
     {
-      "blur-material-specializations" : [
-        {
-          "value" : 0.5
-        },
-        {
-          "appearance" : "tinted",
-          "value" : 0.25
-        }
-      ],
       "layers" : [
         {
-          "image-name" : "1Bolt 2.svg",
-          "name" : "1Bolt 2"
-        },
-        {
-          "hidden" : true,
-          "image-name" : "1Bolt.svg",
-          "name" : "1Bolt"
+          "image-name" : "MapPin.svg",
+          "name" : "MapPin"
         }
       ],
       "shadow" : {
         "kind" : "neutral",
-        "opacity" : 0.5
+        "opacity" : 0.35
       },
-      "translucency-specializations" : [
-        {
-          "value" : {
-            "enabled" : true,
-            "value" : 0.5
-          }
-        },
-        {
-          "appearance" : "tinted",
-          "value" : {
-            "enabled" : true,
-            "value" : 0.7
-          }
-        }
-      ]
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.35
+      }
     },
     {
       "layers" : [
         {
-          "fill" : {
-            "solid" : "extended-gray:1.00000,0.30000"
-          },
-          "glass" : false,
-          "image-name" : "2Grid.svg",
-          "name" : "2Grid"
+          "image-name" : "PathDots.svg",
+          "name" : "PathDots"
         }
       ],
       "shadow" : {
         "kind" : "neutral",
-        "opacity" : 0.5
+        "opacity" : 0.2
       },
-      "specular" : false,
       "translucency" : {
         "enabled" : false,
         "value" : 0.5

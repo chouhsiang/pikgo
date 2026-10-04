@@ -888,6 +888,29 @@ private func connect_location_simulation(_ deviceIP: String, _ pairingFile: Stri
     return LocationSimulationStatus.ok
 }
 
+func location_simulation_user_message(_ code: Int32) -> String {
+    switch code {
+    case LocationSimulationStatus.ok:
+        return "位置模擬已就緒。"
+    case LocationSimulationStatus.invalidIP:
+        return "裝置 IP 無效。請到設定確認 LocalDevVPN 位址。"
+    case LocationSimulationStatus.pairingRead:
+        return "配對檔讀取失敗。請匯入 Remote Pairing 檔，不要用 lockdown pairing。"
+    case LocationSimulationStatus.providerCreate:
+        return "無法建立隧道。請確認 LocalDevVPN 已 Connect。"
+    case LocationSimulationStatus.remoteServer:
+        return "連不上位置模擬服務。請確認開發者模式與 LocalDevVPN。"
+    case LocationSimulationStatus.locationSimulation:
+        return "無法開啟位置模擬。4G 時請先開飛航再關閉。"
+    case LocationSimulationStatus.locationSet:
+        return "已連線但寫入座標失敗，請再試一次。"
+    case LocationSimulationStatus.locationClear:
+        return "清除模擬位置失敗。"
+    default:
+        return "無法模擬位置（錯誤 \(code)）。請確認裝置已連線，且位置模擬已就緒。"
+    }
+}
+
 func clear_simulated_location() -> Int32 {
     guard let locationSimulation = LocationSimulationState.locationSimulation else {
         return LocationSimulationStatus.ok

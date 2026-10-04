@@ -81,7 +81,8 @@ final class ReadinessMonitor: ObservableObject {
 
         pathMonitor.pathUpdateHandler = { [weak self] _ in
             Task { @MainActor in
-                await self?.refreshSnapshot(forceDDI: true)
+                let forceDDI = AppRuntimeState.shared.isActive && !is_location_simulation_connected()
+                await self?.refreshSnapshot(forceDDI: forceDDI)
             }
         }
         pathMonitor.start(queue: pathQueue)
@@ -89,12 +90,20 @@ final class ReadinessMonitor: ObservableObject {
         probeTask = Task { [weak self] in
             while !Task.isCancelled {
                 await self?.refreshSnapshot()
-                let retryAirplane = await MainActor.run {
-                    self?.isLikelyAirplaneMode == true && self?.ddiRequirementSatisfied == false
-                }
-                try? await Task.sleep(for: retryAirplane ? .milliseconds(800) : .seconds(3))
+                let interval = await MainActor.run { self?.probeInterval() ?? .seconds(8) }
+                try? await Task.sleep(for: interval)
             }
         }
+    }
+
+    private func probeInterval() -> Duration {
+        if !AppRuntimeState.shared.isActive {
+            return isReady ? .seconds(20) : .seconds(10)
+        }
+        if isLikelyAirplaneMode && !ddiRequirementSatisfied {
+            return .milliseconds(800)
+        }
+        return isReady ? .seconds(10) : .seconds(3)
     }
 
     func refresh(requestHealthAuthorization: Bool = false) {
@@ -102,7 +111,7 @@ final class ReadinessMonitor: ObservableObject {
     }
 
     private func refreshSnapshot(forceDDI: Bool = false, requestHealthAuthorization: Bool = false) async {
-        pairingImported = FileManager.default.fileExists(atPath: PairingFileStore.prepareURL().path)
+        pairingImported = PairingFileStore.containsRemotePairingFile()
         apply(path: pathMonitor.currentPath)
         refreshHealthSteps()
         if requestHealthAuthorization {

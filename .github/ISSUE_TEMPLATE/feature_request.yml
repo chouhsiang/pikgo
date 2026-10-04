@@ -5,23 +5,17 @@ body:
   - type: markdown
     attributes:
       value: |
-        Have an idea for PikGo? Let us know!
+        這個專案專注在位置模擬與健康步數。請說明你想解決的問題。
   - type: textarea
     id: description
     attributes:
-      label: Description
-      description: A clear description of the feature you'd like.
+      label: 想要的功能
     validations:
       required: true
   - type: textarea
     id: use-case
     attributes:
-      label: Use Case
-      description: Why would this be useful? What problem does it solve?
+      label: 使用情境
+      description: 為什麼需要？現在少了什麼？
     validations:
       required: true
-  - type: textarea
-    id: alternatives
-    attributes:
-      label: Alternatives Considered
-      description: Have you considered any alternative solutions or workarounds?

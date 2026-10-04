@@ -1,21 +1,9 @@
-## Summary
+## 摘要
 
-<!-- Brief description of what this PR does -->
+<!-- 這次改了什麼、為什麼改 -->
 
-## Changes
+## 測試
 
--
-
-## Related Issues
-
-<!-- Link any related issues: Fixes #123, Closes #456 -->
-
-## Testing
-
-- [ ] Tested on device
-- [ ] Tested with fresh pairing file
-- [ ] No regressions in existing functionality
-
-## Screenshots
-
-<!-- If applicable, add screenshots showing the changes -->
+- [ ] 已在實機測試
+- [ ] 沒有提交 pairing 檔或本機簽名資料
+- [ ] 沒有破壞現有的狀態 / 地圖 / 座標 / 步數流程

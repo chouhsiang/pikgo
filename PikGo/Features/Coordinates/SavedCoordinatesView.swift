@@ -210,7 +210,7 @@ struct SavedCoordinatesView: View {
             case .failed(let code):
                 presentAlert(
                     title: "模擬失敗",
-                    message: "無法模擬位置（錯誤 \(code)）。請確認裝置已連線，且位置模擬已就緒。"
+                    message: location_simulation_user_message(code)
                 )
             }
         }

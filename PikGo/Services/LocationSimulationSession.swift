@@ -25,7 +25,13 @@ final class LocationSimulationSession: ObservableObject {
     func startResending(at coordinate: CLLocationCoordinate2D, _ operation: @escaping () -> Void) {
         start(at: coordinate)
         resendTimer?.invalidate()
-        let timer = Timer(timeInterval: 4, repeats: true) { _ in operation() }
+        var lastFire = Date.distantPast
+        let timer = Timer(timeInterval: 4, repeats: true) { _ in
+            let interval: TimeInterval = AppRuntimeState.shared.isActive ? 4 : 8
+            guard Date().timeIntervalSince(lastFire) >= interval - 0.05 else { return }
+            lastFire = Date()
+            operation()
+        }
         RunLoop.main.add(timer, forMode: .common)
         resendTimer = timer
     }
@@ -52,8 +58,10 @@ final class LocationSimulationSession: ObservableObject {
         resendTimer = nil
     }
 
-    func updateCoordinate(_ coordinate: CLLocationCoordinate2D) {
-        self.coordinate = coordinate
+    func updateCoordinate(_ coordinate: CLLocationCoordinate2D, publish: Bool = true) {
+        if publish {
+            self.coordinate = coordinate
+        }
     }
 
     func stop() {

@@ -54,7 +54,6 @@ private enum ExternalLocationAction: Identifiable {
 struct MainTabView: View {
     @AppStorage("primaryTabSelection") private var selection: String = AppFeature.status.id
     @ObservedObject private var readiness = ReadinessMonitor.shared
-    @State private var detachedFeature: AppFeature?
     @State private var didSetInitialHome = false
     @State private var pendingLocationAction: ExternalLocationAction?
 
@@ -110,18 +109,6 @@ struct MainTabView: View {
             } message: { action in
                 Text(action.message)
             }
-            .sheet(item: $detachedFeature) { feature in
-                NavigationStack {
-                    feature.destination
-                        .toolbar {
-                            ToolbarItem(placement: .cancellationAction) {
-                                Button("關閉") {
-                                    detachedFeature = nil
-                                }
-                            }
-                        }
-                }
-            }
         }
     }
 
@@ -153,15 +140,10 @@ struct MainTabView: View {
     }
 
     private func openFeature(id: String) {
-        guard let feature = AppFeature(rawValue: id) else {
+        guard AppFeature.mainTabs.contains(where: { $0.id == id }) else {
             return
         }
-
-        if AppFeature.mainTabs.contains(feature) {
-            selection = feature.id
-        } else {
-            detachedFeature = feature
-        }
+        selection = id
     }
 
     private func confirmSimulatedLocation(from url: URL) {
@@ -256,7 +238,7 @@ struct MainTabView: View {
                 } else {
                     showAlert(
                         title: "位置模擬失敗",
-                        message: "無法從網址模擬位置（錯誤 \(code)）。請確認裝置已連線，且位置模擬已就緒。",
+                        message: location_simulation_user_message(code),
                         showOk: true
                     )
                 }
